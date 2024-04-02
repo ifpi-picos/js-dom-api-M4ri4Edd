@@ -29,7 +29,7 @@ body{
     font-weight: 900;
 }
 
-.login{
+.btn{
     background-color: #2A9D8F;
     color: #fff;
     border: none;
@@ -39,8 +39,36 @@ body{
     font-weight: 600;
     border-radius: 2px;
     transition-duration: 0.2s;
+    margin: 15px;
 }
 
-.login:hover{
+.input-box{
+    margin-top: 5px;
+}
+
+.input-box input{
+    width: 90%;
+    height: 40px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid #2A9D8F;
+    border-radius: 3px;
+}
+
+.input-box input::placeholder{
+    color: #2A9D8F;
+}
+
+.input-box input:hover{
+    border: 1.5px solid #264653;
+}
+
+.input-box label{
+    font-size: large;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.btn:hover{
     background-color: #264653;
 }
