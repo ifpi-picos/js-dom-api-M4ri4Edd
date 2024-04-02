@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    width: 30%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #2A9D8F;
+    box-shadow: 2px 2px 15px #26465373;
+    border-radius: 10px;
+}
+
+.FPtitle{
+    font-weight: 900;
+}
+
+.login{
+    background-color: #2A9D8F;
+    color: #fff;
+    border: none;
+    height: 40px;
+    width: 60%;
+    font-size: medium;
+    font-weight: 600;
+    border-radius: 2px;
+    transition-duration: 0.2s;
+}
+
+.login:hover{
+    background-color: #264653;
+}
