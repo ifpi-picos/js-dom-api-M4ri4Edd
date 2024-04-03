@@ -40,6 +40,14 @@ body{
     border-radius: 2px;
     transition-duration: 0.2s;
     margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#g-logo{
+    filter: invert(100%);
 }
 
 .input-box{
