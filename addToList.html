@@ -9,12 +9,12 @@
 </head>
 <body>
     <div class="container">
-        <form action="" class="input-box">
+        <form action="" class="input-box" id="input-form">
             <label for="nomeTarefa">Tarefa</label>
             <input type="text" id="nomeTarefa" placeholder="Insira a Tarefa">
 
             <label for="">Local</label>
-            <input type="text" id="local" placeholder="local">
+            <input type="text" id="local" placeholder="Local">
 
             <label for="descricao">Descrição</label>
             <input type="text" id="descricao" placeholder="Adicione uma Descrição">
@@ -22,8 +22,9 @@
             <label for="datetime">Data</label>
             <input type="datetime-local" id="datetime" placeholder="dd/mm/aa">
 
-            <input type="submit" id="save" value="Salvar" class="btn">
+            <input type="submit" id="save" value="Salvar" class="btn" onclick="adicionarTarefa()">
         </form>
     </div>
+    <script src="js/script.js"></script>
 </body>
 </html>
