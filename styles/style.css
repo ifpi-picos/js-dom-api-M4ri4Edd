@@ -12,6 +12,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 50px;
 }
 
 .container{
@@ -23,6 +24,10 @@ body{
     color: #2A9D8F;
     box-shadow: 2px 2px 15px #26465373;
     border-radius: 10px;
+}
+
+#list{
+    width: 50%;
 }
 
 .FPtitle{
