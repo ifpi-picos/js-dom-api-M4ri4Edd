@@ -10,9 +10,40 @@ body{
     height: 100vh;
     background-color: #fff;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+main{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    align-items: start;
+    justify-content: center;
     gap: 50px;
+}
+
+footer{
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    color: #2A9D8F;
+    font-weight: 600;
+    width: 100%;
+    box-shadow: 2px 5px 15px #26465373;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+footer a{
+    text-decoration: none;
+    color: #2A9D8F;
+}
+
+footer a:hover{
+    color: #264653;
 }
 
 .container{
@@ -34,23 +65,6 @@ body{
     font-weight: 900;
 }
 
-.btn{
-    background-color: #2A9D8F;
-    color: #fff;
-    border: none;
-    height: 40px;
-    width: 60%;
-    font-size: medium;
-    font-weight: 600;
-    border-radius: 2px;
-    transition-duration: 0.2s;
-    margin: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
 #g-logo{
     filter: invert(100%);
 }
@@ -68,6 +82,26 @@ body{
     border-radius: 3px;
 }
 
+.btn{
+    background-color: #2A9D8F;
+    color: #fff;
+    border: none;
+    height: 40px;
+    font-size: medium;
+    font-weight: 600;
+    border-radius: 2px;
+    transition-duration: 0.2s;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn:hover{
+    background-color: #264653;
+}
+
 .input-box input::placeholder{
     color: #2A9D8F;
 }
@@ -82,6 +116,32 @@ body{
     margin-left: 10px;
 }
 
-.btn:hover{
+#lista{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: start;
+    font-weight: 500;
+}
+
+#lista li{
+    background-color: #2A9D8F;
+    height: 40px;
+    padding: 10px;
+    color: #fff;
+    list-style-type: none;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+
+#lista li .concluir-btn, .excluir-btn{
     background-color: #264653;
+    border: none;
+    padding: 6px;
+    border-radius: 3px;
+    color: #fff;
+    margin-right: 10px;
 }

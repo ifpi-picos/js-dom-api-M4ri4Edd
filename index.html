@@ -8,26 +8,32 @@
     <title>Home</title>
 </head>
 <body>
-    <div class="container">
-        <h1 class="FPtitle">Adicionar Tarefa</h1>
-        <form action="" class="input-box" id="input-form">
-            <label for="nomeTarefa">Tarefa</label>
-            <input type="text" id="nomeTarefa" placeholder="Insira a Tarefa">
-
-            <label for="descricao">Descrição</label>
-            <input type="text" id="descricao" placeholder="Adicione uma Descrição">
-
-            <label for="datetime">Data</label>
-            <input type="datetime-local" id="datetime" placeholder="dd/mm/aa">
-
-            <input type="submit" id="save" value="Salvar" class="btn" onclick="adicionarTarefa()">
-        </form>
-    </div>
-    <div class="container" id="list">
-        <h1 class="FPtitle">Minhas Tarefas</h1>
-        <ul id="lista">
-            
-        </ul>
-    </div>
+    <main>
+        <div class="container">
+            <h1 class="FPtitle">Adicionar Tarefa</h1>
+            <form action="" class="input-box" id="input-form">
+                <label for="nomeTarefa">Tarefa</label>
+                <input type="text" id="nomeTarefa" placeholder="Insira a Tarefa">
+    
+                <label for="descricao">Descrição</label>
+                <input type="text" id="descricao" placeholder="Adicione uma Descrição">
+    
+                <label for="datetime">Data</label>
+                <input type="datetime-local" id="datetime" placeholder="dd/mm/aa">
+    
+                <input type="submit" id="save" value="Salvar" class="btn" onclick="adicionarTarefa()">
+            </form>
+        </div>
+        <div class="container" id="list">
+            <h1 class="FPtitle">Minhas Tarefas</h1>
+            <ul id="lista">
+                
+            </ul>
+        </div>
+    </main>
+    <footer>
+        Desenvolvido por <a href="https://github.com/M4ri4Edd">Maria Luz</a>
+    </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>
