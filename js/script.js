@@ -1,6 +1,6 @@
-// Initialize the Google Tasks API client
-const CLIENT_ID = 'AIzaSyDdRJRT4yEw-ZropcgO1obK6Qm3o_ay_KE';
-const API_KEY = '793446928976-avgeohaghkicra242kq4vtqe12ka43rh.apps.googleusercontent.com';
+// Inicialize o cliente Google Tasks API 
+const API_KEY = 'AIzaSyDdRJRT4yEw-ZropcgO1obK6Qm3o_ay_KE';
+const CLIENT_ID = '793446928976-avgeohaghkicra242kq4vtqe12ka43rh.apps.googleusercontent.com';
 const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest"];
 const SCOPES = 'https://www.googleapis.com/auth/tasks';
 
@@ -8,6 +8,8 @@ const SCOPES = 'https://www.googleapis.com/auth/tasks';
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
 }
+
+handleClientLoad();
 
 // Function to initialize Google Tasks API client
 function initClient() {
@@ -28,6 +30,7 @@ function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         carregarTarefas(); 
     } else {
+        console.log("Erro");
     }
 }
 
@@ -42,6 +45,7 @@ function listTasks() {
                 adicionarTarefaAoDOM(task);
             });
         } else {
+            console.log("Erro");
         }
     });
 }
@@ -63,6 +67,9 @@ function deleteTask(taskId) {
         'tasklist': 'primary', 
         'task': taskId
     }).then(function(response) {
+        console.log('Task deleted successfully:', response);
+    }).catch(function(error) {
+        console.error('Error deleting task:', error);
     });
 }
 
@@ -84,6 +91,7 @@ function salvarTarefaNoAPI(tarefa) {
 function removerTarefaDoAPI(taskId) {
     deleteTask(taskId);
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     // Selecionando elementos do DOM
     const form = document.getElementById('input-form');
