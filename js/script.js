@@ -1,6 +1,6 @@
 // Inicialize o cliente Google Tasks API 
 const API_KEY = 'AIzaSyDdRJRT4yEw-ZropcgO1obK6Qm3o_ay_KE';
-const CLIENT_ID = '35188170979-aepj6epcuhaqadtr3elh9amrl9fqfgt7.apps.googleusercontent.com';
+const CLIENT_ID = '793446928976-avgeohaghkicra242kq4vtqe12ka43rh.apps.googleusercontent.com';
 const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest"];
 const SCOPES = 'https://www.googleapis.com/auth/tasks';
 
@@ -16,8 +16,6 @@ function initClient() {
         clientId: CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES
-    }).then(function () {
-        listTasks(); 
     });
 }
 
