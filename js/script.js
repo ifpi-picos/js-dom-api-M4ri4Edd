@@ -18,8 +18,6 @@ function initClient() {
         scope: SCOPES
     }).then(function () {
         listTasks(); 
-    }, function(error) {
-        console.error('Error initializing Google API client: ', error);
     });
 }
 
