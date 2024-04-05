@@ -6,14 +6,12 @@ const SCOPES = 'https://www.googleapis.com/auth/tasks';
 
 // Function to handle loading of Google Tasks API client
 function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
+    gapi.load('client:auth2:signin2', initClient)
 }
-
-handleClientLoad();
 
 // Function to initialize Google Tasks API client
 function initClient() {
-    gapi.client.init({
+    gapi.auth2.init({
         apiKey: API_KEY,
         clientId: CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
@@ -24,7 +22,6 @@ function initClient() {
         console.error('Error initializing Google API client: ', error);
     });
 }
-
 
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
@@ -50,22 +47,21 @@ function listTasks() {
     });
 }
 
-// Function to create a task
 function createTask(task) {
-    gapi.client.tasks.tasks.insert({
-        'tasklist': 'primary', 
-        'resource': task
+    gapi.client.request({
+        'path': 'tasks/v1/lists/primary/tasks',
+        'method': 'POST',
+        'body': task
     }).then(function(response) {
         var createdTask = response.result;
         adicionarTarefaAoDOM(createdTask); 
     });
 }
 
-// Function to delete a task
 function deleteTask(taskId) {
-    gapi.client.tasks.tasks.delete({
-        'tasklist': 'primary', 
-        'task': taskId
+    gapi.client.request({
+        'path': 'tasks/v1/lists/primary/tasks/' + taskId,
+        'method': 'DELETE'
     }).then(function(response) {
         console.log('Task deleted successfully:', response);
     }).catch(function(error) {
