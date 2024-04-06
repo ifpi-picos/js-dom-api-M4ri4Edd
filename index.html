@@ -1,40 +1,60 @@
 <!DOCTYPE html>
-<html lang= "pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="styles/style.css">
-    <title>Home</title>
+    <title>TO-DO List</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-<body onload="handleClientLoad()">
+<body>
     <main>
-        <div class="container">
-            <h1 class="FPtitle">Adicionar Tarefa</h1>
-            <form action="" class="input-box" id="input-form">
-                <label for="nomeTarefa">Tarefa</label>
-                <input type="text" id="nomeTarefa" placeholder="Insira a Tarefa">
-    
+        <div class="form-container">
+            <h2 class="cadastrar">Cadastrar Tarefa</h2>
+            <form id="form-tarefa">
+                <label for="titulo">Nome</label>
+                <input class="input" type="text" id="titulo" placeholder="Nome da Tarefa" required>
+
                 <label for="descricao">Descrição</label>
-                <input type="text" id="descricao" placeholder="Adicione uma Descrição">
-    
-                <label for="datetime">Data</label>
-                <input type="datetime-local" id="datetime" placeholder="dd/mm/aa">
-    
-                <input type="submit" id="save" value="Salvar" class="btn">
+                <input class="input" type="text" id="descricao" placeholder="Descrição da Tarefa" required>
+
+                <label for="categoria">Categoria</label>
+                <select class="input" id="categoria" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="trabalho">Trabalho</option>
+                    <option value="estudos">Estudos</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="outros">Outros</option>
+                </select>
+
+                <label for="data">Data</label>
+                <input class="input" type="date" id="data" placeholder="aa/mm/dd" required>
+
+                <input class="btn" type="submit" value="Cadastrar">
             </form>
-        </div>
-        <div class="container" id="list">
-            <h1 class="FPtitle">Minhas Tarefas</h1>
-            <ul id="lista">
-                
+        </div> 
+
+        <div class="list-container">
+            <h2 class="listagem">Minhas Tarefas</h2>
+            <p class="order">Filtrar por:
+                <select id="filter-by">
+                    <option value="todos">Todos</option>
+                    <option value="trabalho">Trabalho</option>
+                    <option value="estudos">Estudos</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </p>
+
+            <ul id="lista-tarefas" class="list-items">
+                <p id="null">Não há tarefas</p>
             </ul>
         </div>
     </main>
     <footer>
-        Desenvolvido por <a href="https://github.com/M4ri4Edd">Maria Luz</a>
+        <p>
+          Desenvolvido por
+          <a href="https://github.com/M4ri4Edd" target="_blank">Maria Luz</a>
+        </p>
     </footer>
-    <script src="https://apis.google.com/js/api.js"></script>
-    <script src="js/script.js"></script>
 </body>
 </html>

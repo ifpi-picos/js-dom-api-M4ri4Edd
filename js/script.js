@@ -1,135 +1,303 @@
-// Inicialize o cliente Google Tasks API 
-const API_KEY = 'AIzaSyDdRJRT4yEw-ZropcgO1obK6Qm3o_ay_KE';
-const CLIENT_ID = '793446928976-avgeohaghkicra242kq4vtqe12ka43rh.apps.googleusercontent.com';
-const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/tasks/v1/rest"];
-const SCOPES = 'https://www.googleapis.com/auth/tasks';
+const tarefaForm = document.getElementById('form-tarefa');
+const tituloInput = document.getElementById('titulo');
+const descricaoInput = document.getElementById('descricao');
+const categoriaInput = document.getElementById('categoria');
+const dataInput = document.getElementById('data');
+const listaTarefas = document.getElementById('lista-tarefas');
+const cabecarioLista = document.getElementById('lista-tarefas-body');
+const nullMessage = document.getElementById('null');
 
-// Function to handle loading of Google Tasks API client
-function handleClientLoad() {
-    gapi.load('client:auth2:signin2', initClient)
+// Array para armazenar as tarefas
+let lista = [];
+
+// Verificar a autenticação ao carregar a página
+verificarAutenticacao();
+
+// Carregar os tarefas do Local Storage ao carregar a página
+loadLocalStorage();
+
+// Parâmetros da API
+const url = 'https://api.todoist.com/rest/v2/tasks';
+
+// Variáveis globais para armazenar o estado da autenticação
+let accessToken = null;
+let isAuthenticated = false;
+
+function solicitarAutorizacaoOAuth() {
+    const clientID = '2740ffea288245b0adedbbf8f52bf503';
+    const scope1 = 'task:add';
+    const scope2 = 'data:delete';
+    const scope3 = 'data:read';
+    const scope4 = 'data:read_write';
+    const scope = `${scope1},${scope2},${scope3},${scope4}`; 
+    const state = '78678868685856';
+
+    const urlAutorizacao = `https://todoist.com/oauth/authorize?client_id=${clientID}&scope=${scope}&state=${state}`;
+
+    // Redirecionar o usuário para a URL de autorização
+    window.location.href = urlAutorizacao;
 }
 
-// Function to initialize Google Tasks API client
-function initClient() {
-    gapi.auth2.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-    });
-}
+async function trocarCodigoPorAccessToken(codigo) {
+    const clientID = '2740ffea288245b0adedbbf8f52bf503';
+    const clientSecret = 'b798552ae7dc463098cd31f923368499';
+    const redirectURI = 'https://m4ri4edd.github.io/api-test/';
 
-function updateSigninStatus(isSignedIn) {
-    if (isSignedIn) {
-        carregarTarefas(); 
-    } else {
-        console.log("Erro");
-    }
-}
+    const urlTrocaToken = 'https://todoist.com/oauth/access_token';
 
-// Function to list tasks
-function listTasks() {
-    gapi.client.tasks.tasks.list({
-        'tasklist': 'primary' // Change tasklist ID as needed
-    }).then(function(response) {
-        var tasks = response.result.items;
-        if (tasks && tasks.length > 0) {
-            tasks.forEach(function(task) {
-                adicionarTarefaAoDOM(task);
-            });
-        } else {
-            console.log("Erro");
-        }
-    });
-}
+    const parametros = {
+        client_id: clientID,
+        client_secret: clientSecret,
+        code: codigo,
+        redirect_uri: redirectURI
+    };
 
-function createTask(task) {
-    gapi.client.request({
-        'path': 'tasks/v1/lists/primary/tasks',
-        'method': 'POST',
-        'body': task
-    }).then(function(response) {
-        var createdTask = response.result;
-        adicionarTarefaAoDOM(createdTask); 
-    });
-}
-
-function deleteTask(taskId) {
-    gapi.client.request({
-        'path': 'tasks/v1/lists/primary/tasks/' + taskId,
-        'method': 'DELETE'
-    }).then(function(response) {
-        console.log('Task deleted successfully:', response);
-    }).catch(function(error) {
-        console.error('Error deleting task:', error);
-    });
-}
-
-// Function to load tasks from Google Tasks API
-function carregarTarefas() {
-    listTasks();
-}
-
-// Function to save a task to Google Tasks API
-function salvarTarefaNoAPI(tarefa) {
-    createTask({
-        'title': tarefa.titulo,
-        'notes': tarefa.descricao,
-        'due': tarefa.datetime
-    });
-}
-
-// Function to remove a task from Google Tasks API
-function removerTarefaDoAPI(taskId) {
-    deleteTask(taskId);
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    // Selecionando elementos do DOM
-    const form = document.getElementById('input-form');
-    const listaTarefas = document.getElementById('lista');
-
-    // Função para adicionar tarefa ao DOM
-    function adicionarTarefaAoDOM(tarefa) {
-        const li = document.createElement('li');
-        li.innerHTML = `
-        <div class="text">
-            <strong>${tarefa.title}</strong><br> 
-            <span>${tarefa.due}</span>
-            <span>${tarefa.notes}</span>
-        </div>
-        <div class="button-container">
-            <button class="remove-btn">Remover</button>
-        </div>
-        `;
-
-        listaTarefas.appendChild(li);
-
-        // Adicionando evento de remoção da tarefa
-        const removeBtn = li.querySelector('.remove-btn');
-        removeBtn.addEventListener('click', () => {
-            li.remove();
-            removerTarefaDoAPI(tarefa.id); 
+    try {
+        const resposta = await fetch(urlTrocaToken, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(parametros)
         });
+
+        if (!resposta.ok) {
+            throw new Error('Erro ao trocar código por token de acesso');
+        }
+
+        const dados = await resposta.json();
+        accessToken = dados.access_token;
+        isAuthenticated = true;
+
+        localStorage.setItem('accessToken', accessToken);
+
+        console.log('Token de acesso obtido:', accessToken);
+    } catch (erro) {
+        console.error('Ocorreu um erro ao trocar código por token de acesso:', erro);
+    }
+}
+
+function verificarAutenticacao() {
+    const urlAtual = new URL(window.location.href);
+    const codigo = urlAtual.searchParams.get('code');
+
+    if (codigo) {
+        trocarCodigoPorAccessToken(codigo);
+    } else {
+        alert('Usuário não autenticado. Redirecionando para a página de autenticação para logar no Todoist.');
+        solicitarAutorizacaoOAuth();
+    }
+}
+
+async function fazerChamadaAPI(url, options) {
+    if (!isAuthenticated) {
+        console.error('Usuário não autenticado');
+        return;
     }
 
-    // Evento de submissão do formulário
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        const titulo = document.getElementById('nomeTarefa').value;
-        const descricao = document.getElementById('descricao').value;
-        const datetime = document.getElementById('datetime').value;
+    options.headers.Authorization = `Bearer ${accessToken}`;
 
-        const tarefa = {
-            titulo,
-            descricao,
-            datetime
-        };
+    try {
+        const resposta = await fetch(url, options);
+        return resposta.json();
+    } catch (erro) {
+        console.error('Ocorreu um erro ao fazer chamada à API:', erro);
+    }
+}
 
-        adicionarTarefaAoDOM(tarefa);
-        salvarTarefaNoAPI(tarefa);
+function cadastrarTarefa(event) {
+    event.preventDefault();
+  
+    const titulo = tituloInput.value;
+    const descricao = descricaoInput.value;
+    const categoria = categoriaInput.value;
+    const data = dataInput.value;
+  
+    const tarefa = {titulo, descricao, categoria, data, status: 'pendente'};
 
-        // Limpar campos do formulário
-        form.reset();
+    // Enviar tarefa para a API
+    const options = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+          content: titulo,
+          description: descricao,
+          due_date: data,
+          priority: 1,
+          labels: [categoria]
+      })
+  };
+
+  fetch(url, options)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Erro ao cadastrar tarefa.');
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log('Tarefa cadastrada:', data);
+          tarefa.id = data.id;
+          lista.push(tarefa);
+          atualizarListaTarefas();
+          saveLocalStorage();
+      })
+      .catch(error => {
+          console.error('Ocorreu um erro:', error);
+      });
+  
+    // Limpar os campos de entrada
+    tituloInput.value = '';
+    descricaoInput.value = '';
+    dataInput.value = '';   
+}
+
+function atualizarListaTarefas() {
+    // Clear the list first
+    listaTarefas.innerHTML = '';
+
+    // Check if there are tasks to display
+    if (lista.length === 0) {
+        nullMessage.style.display = 'block';
+        return;
+    }
+
+    nullMessage.style.display = 'none';
+
+    const filterBy = document.getElementById('filter-by').value;
+    let tarefasFiltradas = [];
+
+    if (filterBy === 'todos') {
+        tarefasFiltradas = lista;
+    } else {
+        tarefasFiltradas = lista.filter(tarefa => tarefa.categoria === filterBy);
+    }
+
+    // Create list items for each task
+    tarefasFiltradas.forEach((tarefa) => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('list-item');
+
+        const tituloSpan = document.createElement('span');
+        tituloSpan.textContent = `${tarefa.titulo}`;
+        tituloSpan.classList.add('part');
+        tituloSpan.setAttribute('id', 'nome-tarefa');
+
+        const dataSpan = document.createElement('span');
+        dataSpan.textContent = `Data: ${tarefa.data}`;
+        dataSpan.classList.add('part');
+
+        const statusSpan = document.createElement('span');
+        statusSpan.textContent = `Tarefa ${tarefa.status}`;
+        statusSpan.classList.add('part');
+
+        const descricaoSpan = document.createElement('span');
+        descricaoSpan.textContent = `${tarefa.descricao}`;
+        descricaoSpan.classList.add('part');
+        descricaoSpan.setAttribute('id', 'descricao');
+
+        const completeButton = document.createElement('button');
+        completeButton.textContent = 'Concluir';
+        completeButton.classList.add('part');
+        descricaoSpan.setAttribute('id', 'complete-button');
+        completeButton.addEventListener('click', () => concluirTarefa(tarefa));
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Excluir';
+        deleteButton.classList.add('part');
+        descricaoSpan.setAttribute('id', 'delete-button');
+        deleteButton.addEventListener('click', () => excluirTarefa(tarefa));
+
+        listItem.appendChild(tituloSpan);
+        listItem.appendChild(dataSpan);
+        listItem.appendChild(statusSpan);
+        listItem.appendChild(descricaoSpan);
+        listItem.appendChild(completeButton);
+        listItem.appendChild(deleteButton);
+
+        listaTarefas.appendChild(listItem);
     });
-});
+}
+
+const filterBySelect = document.getElementById('filter-by');
+filterBySelect.addEventListener('change', atualizarListaTarefas);
+
+function concluirTarefa(tarefa) {
+    tarefa.status = 'concluída';
+    const tarefaId = tarefa.id;
+
+    // Concluir tarefa na API
+    const options = {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+          id: tarefaId
+      })
+  };
+
+  const urlUpdate = `${url}/${tarefaId}/close`; // URL com o parametro close para concluir a tarefa
+
+  fetch(urlUpdate, options)
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Erro ao concluir tarefa.');
+          }
+          console.log('Tarefa concluída com sucesso no Todoist.');
+      })
+      .catch(error => {
+          console.error('Ocorreu um erro:', error);
+      });
+
+    atualizarListaTarefas();
+    saveLocalStorage();
+}
+
+function excluirTarefa(tarefa) {
+    lista = lista.filter((item) => item !== tarefa);
+    const tarefaId = tarefa.id;
+  
+    // Enviar requisição DELETE para a API
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+    };
+  
+    const urlDelete = `${url}/${tarefaId}`;
+  
+    fetch(urlDelete, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao excluir tarefa.');
+            }
+            console.log('Tarefa excluída com sucesso do Todoist.');
+        })
+        .catch(error => {
+            console.error('Ocorreu um erro:', error);
+        });
+  
+      atualizarListaTarefas();
+      saveLocalStorage();
+}
+
+function saveLocalStorage() {
+    localStorage.setItem('lista', JSON.stringify(lista));
+}
+  
+function loadLocalStorage() {
+    const savedlista = localStorage.getItem('lista');
+    if (savedlista) {
+      lista = JSON.parse(savedlista);
+      atualizarListaTarefas();
+    }
+}
+
+// Evento de submit ao formulário
+tarefaForm.addEventListener('submit', cadastrarTarefa);
