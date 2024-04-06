@@ -202,13 +202,13 @@ function atualizarListaTarefas() {
         const completeButton = document.createElement('button');
         completeButton.textContent = 'Concluir';
         completeButton.classList.add('part');
-        descricaoSpan.setAttribute('id', 'complete-button');
+        completeButton.setAttribute('id', 'complete-button');
         completeButton.addEventListener('click', () => concluirTarefa(tarefa));
 
         const deleteButton = document.createElement('button');
         deleteButton.textContent = 'Excluir';
         deleteButton.classList.add('part');
-        descricaoSpan.setAttribute('id', 'delete-button');
+        deleteButton.setAttribute('id', 'delete-button');
         deleteButton.addEventListener('click', () => excluirTarefa(tarefa));
 
         listItem.appendChild(tituloSpan);
