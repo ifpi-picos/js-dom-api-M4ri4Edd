@@ -214,9 +214,9 @@ function atualizarListaTarefas() {
         listItem.appendChild(tituloSpan);
         listItem.appendChild(dataSpan);
         listItem.appendChild(statusSpan);
-        listItem.appendChild(descricaoSpan);
         listItem.appendChild(completeButton);
         listItem.appendChild(deleteButton);
+        listItem.appendChild(descricaoSpan);
 
         listaTarefas.appendChild(listItem);
     });
