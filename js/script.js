@@ -41,7 +41,7 @@ function solicitarAutorizacaoOAuth() {
 async function trocarCodigoPorAccessToken(codigo) {
     const clientID = '2740ffea288245b0adedbbf8f52bf503';
     const clientSecret = 'b798552ae7dc463098cd31f923368499';
-    const redirectURI = 'https://m4ri4edd.github.io/api-test/';
+    const redirectURI = 'https://ifpi-picos.github.io/js-dom-api-M4ri4Edd/';
 
     const urlTrocaToken = 'https://todoist.com/oauth/access_token';
 
