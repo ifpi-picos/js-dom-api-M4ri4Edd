@@ -7,21 +7,20 @@
 
 body{
     width: 100vw;
-    height: 100vh;
     background-color: #fff;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 main{
     width: 100%;
-    height: 80%;
+    height: 100%;
+    padding-top: 5%;
     display: flex;
     align-items: start;
     justify-content: center;
     gap: 50px;
+    padding-bottom: 15%;
 }
 
 footer{
@@ -195,4 +194,37 @@ footer a:hover{
 #complete-button:hover, #delete-button:hover{
     background-color: #264653;
     color: #fff;
+}
+
+@media only screen and (max-width: 600px){   
+    main{
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .form-container, .list-container{
+        width: 90%;
+    }
+
+    #filter-by{
+        width: 40%;
+    }
+
+    .list-item .part{
+        width: 31.3%;
+        margin: 1%;
+    }
+    
+    .list-item #nome-tarefa{
+        font-weight: 600;
+    }
+    
+    .list-item #descricao{
+        width: 99%;
+    }
+    
+    #complete-button, #delete-button{
+        width: 47%;
+    }
 }
