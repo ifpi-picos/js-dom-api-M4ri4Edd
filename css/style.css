@@ -5,9 +5,25 @@
     font-family: sans-serif;
 }
 
+:root{
+    --color-1: #fff;
+    --color-2: #2A9D8F;
+    --color-3: #264653;
+    --color-4: #26465373;
+    --color-5: #fff;
+}
+
+.dark-mode{
+    --color-1: #293241;
+    --color-2: #06A77D;
+    --color-3: #fff;
+    --color-4: #000;
+    --color-5: #061319;
+}
+
 body{
     width: 100vw;
-    background-color: #fff;
+    background-color: var(--color-1);
     display: flex;
     align-items: center;
 }
@@ -25,13 +41,13 @@ main{
 
 footer{
     position: fixed;
-    background-color: #fff;
+    background-color: var(--color-5);
     bottom: 0;
     padding: 10px;
-    color: #2A9D8F;
+    color: var(--color-2);
     font-weight: 600;
     width: 100%;
-    box-shadow: 2px 5px 15px #26465373;
+    box-shadow: 2px 5px 15px var(--color-4);
     display: flex;
     justify-content: center;
     gap: 6px;
@@ -39,7 +55,7 @@ footer{
 
 footer a{
     text-decoration: none;
-    color: #2A9D8F;
+    color: var(--color-2);
 }
 
 footer a:hover{
@@ -47,17 +63,19 @@ footer a:hover{
 }
 
 .form-container{
+    background-color: var(--color-5);
     width: 30%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #2A9D8F;
-    box-shadow: 2px 2px 15px #26465373;
+    color: var(--color-2);
+    box-shadow: 2px 2px 15px var(--color-4);
     border-radius: 10px;
 }
 
 .list-container{
+    background-color: var(--color-5);
     width: 50%;
     padding: 20px;
     display: flex;
@@ -66,9 +84,20 @@ footer a:hover{
     justify-content: center;
     align-items: center;
     font-weight: 600;
-    color: #2A9D8F;
-    box-shadow: 2px 2px 15px #26465373;
+    color: var(--color-2);
+    box-shadow: 2px 2px 15px var(--color-4);
     border-radius: 10px;
+}
+
+.select-color{
+    background-color: transparent;
+    border: none;
+    color: var(--color-2);
+    transition-duration: 0.2s;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 .listagem, .cadastrar{
@@ -88,15 +117,15 @@ footer a:hover{
     height: 40px;
     margin: 10px 0;
     padding: 10px;
-    border: 1px solid #2A9D8F;
+    border: 1px solid var(--color-2);
     border-radius: 3px;
-    color: #2A9D8F;
+    color: var(--color-2);
 }
 
 #form-tarefa .btn, #null{
     width: 100%;
-    background-color: #2A9D8F;
-    color: #fff;
+    background-color: var(--color-2);
+    color: var(--color-1);
     border: none;
     height: 40px;
     margin-top: 10px;
@@ -111,15 +140,15 @@ footer a:hover{
 }
 
 #form-tarefa .btn:hover{
-    background-color: #264653;
+    background-color: var(--color-3);
 }
 
 #form-tarefa  input::placeholder{
-    color: #2A9D8F;
+    color: var(--color-2);
 }
 
 #form-tarefa input:hover{
-    border: 1.5px solid #264653;
+    border: 1.5px solid var(--color-3);
 }
 
 #form-tarefa label{
@@ -139,9 +168,9 @@ footer a:hover{
     width: 20%;
     height: 40px;
     padding: 10px;
-    border: 1px solid #2A9D8F;
+    border: 1px solid var(--color-2);
     border-radius: 3px;
-    color: #2A9D8F;
+    color: var(--color-2);
 }
 
 .list-items{
@@ -150,10 +179,10 @@ footer a:hover{
 
 .list-item{
     width: 100%;
-    background-color: #2A9D8F;
+    background-color: var(--color-2);
     padding: 10px;
-    color: #fff;
-    text-shadow: 0 0 1px #264653;
+    color: var(--color-2);
+    text-shadow: 0 0 1px var(--color-4);
     list-style-type: none;
     border-radius: 3px;
     display: flex;
@@ -175,25 +204,25 @@ footer a:hover{
 .list-item #descricao{
     width: 100%;
     font-weight: 550;
-    color: #264653;
+    color: var(--color-3);
     text-align: justify;
     text-shadow: none;
 }
 
 #complete-button, #delete-button{
-    background-color: #fff;
+    background-color: var(--color-1);
     border: none;
     padding: 8px;
     border-radius: 3px;
-    color: #2A9D8F;
+    color: var(--color-2);
     margin-right: 5px;
     font-weight: 700;
     transition-duration: 0.2s;
 }
 
 #complete-button:hover, #delete-button:hover{
-    background-color: #264653;
-    color: #fff;
+    background-color: var(--color-3);
+    color: var(--color-1);
 }
 
 @media only screen and (max-width: 600px){   
@@ -226,5 +255,19 @@ footer a:hover{
     
     #complete-button, #delete-button{
         width: 47%;
+    }
+
+    .select-color{
+        background-color: var(--color-1);
+        border: none;
+        color: var(--color-2);
+        box-shadow: 2px 5px 15px var(--color-4);
+        width: 50px;
+        display: flex;
+        justify-content: end;
+        top: 10px;
+        left: 0;
+        padding: 5px;
+        border-radius: 3px;
     }
 }

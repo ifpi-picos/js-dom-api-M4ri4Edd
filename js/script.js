@@ -299,5 +299,28 @@ function loadLocalStorage() {
     }
 }
 
+let theme = document.getElementById("theme-select");;
+
+function darkmode() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem('darkModeEnabled', document.body.classList.contains("dark-mode"));
+};
+
+if (localStorage.getItem('darkModeEnabled') === 'true') {
+    document.body.classList.add("dark-mode");
+}
+
+document.getElementById('icon').addEventListener('click', function() {
+    this.classList.toggle('bxs-sun');
+    this.classList.toggle('bx-sun');
+    localStorage.setItem('iconEnabled', this.classList.contains('bx-sun'));
+});
+
+if (localStorage.getItem('iconEnabled') === 'true') {
+    document.getElementById('icon').classList.add('bx-sun');
+} else {
+    document.getElementById('icon').classList.add('bxs-sun');
+}
+
 // Evento de submit ao formulário
 tarefaForm.addEventListener('submit', cadastrarTarefa);
