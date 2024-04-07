@@ -1,33 +1,16 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/eo0XoPzu)
 
-# TO-DO List App
+## TO-DO List App
 
 ### Instituto Federal do Piauí (IFPI) - Análise e Desenvolvimento de Sistemas - Módulo III
 - Professor: Jesiel Viana
-- Aluno: Matheus da Silva
+- Aluno: Maria Eduarda Silva Luz
 
-## Descrição
 
-Este é um aplicativo de TO-DO List que permite adicionar, concluir e remover tarefas, bem como armazenar os dados localmente e integrar-se à API do Todoist para gerenciamento de tarefas.
-Este projeto foi desenvolvido como parte de um exercício prático para demonstrar o uso de JavaScript puro, integração com APIs externas e persistência de dados localmente.
+Este é um aplicativo de lista de tarefas que permite adicionar, concluir e remover tarefas, além de armazenar os dados localmente e se integrar à API da plataforma Todoist. 
 
-## Requisitos do Aplicativo:
-- Adicionar uma nova tarefa
-- Concluir uma tarefa
-- Remover uma tarefa
-- Armazenar os dados no armazenamento local para persistência entre sessões
 
-### Recursos Opcionais:
-- Adicionar data a uma tarefa
-- Adicionar etiqueta a uma tarefa
-- Criar listas/categorias para organizar as tarefas
+Desenvolvido como um exercício prático para demonstrar o uso de JavaScript puro, integração com APIs externas e persistência de dados locais, o aplicativo tem requisitos básicos, como adicionar, concluir e remover tarefas e, opcionalmente, permite adicionar datas, etiquetas e organizar tarefas em listas ou categorias. 
 
-## Tecnologias Utilizadas:
-- JavaScript puro para toda a lógica de frontend e integração com a API
-- Local Storage para persistência de dados localmente
-- API do Todoist para integração com um aplicativo de gerenciamento de tarefas
 
-## Integração com a API do Todoist:
-- Métodos HTTP: A aplicação utiliza métodos HTTP, como POST e DELETE, para enviar e receber dados da API do Todoist.
-- Documentação da API: A documentação da API do Todoist foi consultada para garantir o uso correto dos endpoints e parâmetros necessários.
-Acesse a documentação: https://developer.todoist.com/
+Ele utiliza JavaScript para a lógica de backend e integração com a API, e Local Storage para persistência de dados, além de se integrar à API do Todoist, utilizando métodos HTTP como POST e DELETE, e consultando sua documentação para garantir o uso correto dos endpoints e parâmetros.
