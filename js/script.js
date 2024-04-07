@@ -161,7 +161,7 @@ function atualizarListaTarefas() {
 
     // Check if there are tasks to display
     if (lista.length === 0) {
-        nullMessage.style.display = 'block';
+        nullMessage.style.display = 'flex';
         return;
     }
 
