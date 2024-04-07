@@ -181,7 +181,7 @@ footer a:hover{
     width: 100%;
     background-color: var(--color-2);
     padding: 10px;
-    color: var(--color-2);
+    color: var(--color-1);
     text-shadow: 0 0 1px var(--color-4);
     list-style-type: none;
     border-radius: 3px;
