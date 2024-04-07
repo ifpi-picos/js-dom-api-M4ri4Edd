@@ -141,6 +141,7 @@ footer a:hover{
 
 #form-tarefa .btn:hover{
     background-color: var(--color-3);
+    cursor: pointer;
 }
 
 #form-tarefa  input::placeholder{
@@ -171,6 +172,7 @@ footer a:hover{
     border: 1px solid var(--color-2);
     border-radius: 3px;
     color: var(--color-2);
+    cursor: pointer;
 }
 
 .list-items{
@@ -218,6 +220,7 @@ footer a:hover{
     margin-right: 5px;
     font-weight: 700;
     transition-duration: 0.2s;
+    cursor: pointer;
 }
 
 #complete-button:hover, #delete-button:hover{
